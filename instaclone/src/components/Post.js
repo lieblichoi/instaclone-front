@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
-import { Texts, Images, Buttons } from "../elements"
-import { useDispatch, useSelector } from "react-redux"
-import { actionsCreators as postActions } from "../redux/modules/post"
+import { Texts, Images } from "../elements"
 import { CommentWrite } from "./CommentWrite"
-import { actionsCreators as commentActions } from "../redux/modules/comment"
+// import { actionsCreators as commentActions } from "../redux/modules/comment"
 import { Icon } from "./Icon"
 
 const Post = (props) => {
-  const dispatch = useDispatch()
-  const post_list = useSelector((state) => state.post.post_list)
-
-  // console.log(document.documentElement.scrollTop, "asd")
-  // console.log(document.documentElement.scrollHeight)
-  useEffect(() => {
-    dispatch(commentActions.get_comment_md())
-    dispatch(postActions.getPostMD())
-  }, [])
+  const { post_list } = props
 
   return (
     <Container>
@@ -26,7 +16,7 @@ const Post = (props) => {
             <Grid>
               {/* <PostGrid> */}
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Images profileImg src={props.user_Profile} />
+                <Images profileImg profileSrc={post.user_Profile} />
 
                 <Texts bold>{post.postingAuthor}</Texts>
               </div>
@@ -46,10 +36,10 @@ const Post = (props) => {
             </Grid>
 
             {/* 게시물 사진 */}
-            <Images src={props.postingImgUrl}></Images>
+            <Images postSrc={post.postingImgUrl}></Images>
 
             {/* 아이콘 */}
-            <Icon />
+            <Icon post={post} />
 
             {/* 댓글작성 컴포넌트*/}
             <CommentWrite post={post} />
@@ -96,4 +86,4 @@ const PostContainer = styled.div`
   max-width: 350px;
 `
 
-export default Post;
+export default Post

@@ -2,11 +2,13 @@ import React, { useState } from "react"
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { BsChat, BsBookmark } from "react-icons/bs"
 import { RiSendPlaneLine } from "react-icons/ri"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Buttons, Texts } from "../elements"
 import { actionsCreators as postActions } from "../redux/modules/post"
 
-export const Icon = () => {
+export const Icon = (props) => {
+  const { post } = props
+
   const dispatch = useDispatch()
   const [like, setLike] = useState(0)
 
@@ -24,9 +26,8 @@ export const Icon = () => {
     } else {
       setLike(like + 1)
     }
-    // like ? setLike(like - 1) :
-    //   setLike(like + 1)
   }
+
   console.log("좋아요 + 1", like)
   return (
     <>
@@ -34,7 +35,7 @@ export const Icon = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          margin: "0px 8px",
+          margin: "8px",
         }}
       >
         {/* 아이콘 */}
@@ -48,7 +49,6 @@ export const Icon = () => {
             {like ? (
               <AiFillHeart
                 style={{
-                  padding: "5px",
                   width: "26px",
                   height: "26px",
                   color: "#ff0000ba",
@@ -57,7 +57,6 @@ export const Icon = () => {
             ) : (
               <AiOutlineHeart
                 style={{
-                  padding: "5px",
                   width: "26px",
                   height: "26px",
                 }}
@@ -68,7 +67,6 @@ export const Icon = () => {
           <Buttons>
             <BsChat
               style={{
-                padding: "5px",
                 width: "24px",
                 height: "24px",
                 transform: "scaleX(-1)",
@@ -77,19 +75,15 @@ export const Icon = () => {
           </Buttons>
           {/* 쪽지 아이콘 */}
           <Buttons>
-            <RiSendPlaneLine
-              style={{ padding: "5px", width: "26px", height: "26px" }}
-            />
+            <RiSendPlaneLine style={{ width: "26px", height: "26px" }} />
           </Buttons>
         </div>
         <div>
-          <BsBookmark
-            style={{ padding: "8px", width: "24px", height: "24px" }}
-          />
+          <BsBookmark style={{ width: "24px", height: "24px" }} />
         </div>
       </div>
       <div style={{ margin: "0px 13px" }}>
-        <Texts> 좋아요 {like} 개</Texts>
+        <Texts> 좋아요 {post.likeUser.length} 개</Texts>
       </div>
     </>
   )
