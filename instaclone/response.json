@@ -1,0 +1,27 @@
+{
+    "login":{
+        "email": "asc@asd.com",
+        "password": "12345678"
+    },
+    
+    "user":{
+        "email": "asdf@asd.com",
+        "user": "김태현",
+        "nickname": "nick",
+        "password": "12345678"
+    },
+    "posts": [
+        {
+            "postId": "2",
+            "image": "xxx.jpg",
+            "content": "instagram clone",
+            "createdAt": "2021 ..." 
+        },
+        {
+            "postId": "3",
+            "image": "xxx.jpg",
+            "content": "instagram clone",
+            "createdAt": "2021 ..." 
+        }
+    ]
+  }

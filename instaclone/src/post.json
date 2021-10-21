@@ -1,0 +1,13 @@
+{
+  "postList": [
+    {
+      "postID": 123123,
+      "postingTitle": "테스트",
+      "postingAuthor": "테스트작성자",
+      "postingComment": "테스트 합니다",
+      "postingDate ": "2021-10-18 15:45:00",
+      "postingLike": 1,
+      "postingImgUrl": "https://jjalbot.com/media/2020/07/a1GkH3KImV/TciXqqMbo.jpeg"
+    }
+  ]
+}
