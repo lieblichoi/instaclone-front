@@ -3,7 +3,9 @@ import { AiOutlineSmile } from "react-icons/ai"
 import { useDispatch, useSelector } from "react-redux"
 import { Texts, Images, Buttons } from "../elements"
 import { history } from "../redux/configStore"
-import { actionsCreators as commentActions } from "../redux/modules/comment"
+import comment, {
+  actionsCreators as commentActions,
+} from "../redux/modules/comment"
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from "dayjs"
 import "dayjs/locale/ko"
@@ -13,33 +15,23 @@ export const CommentWrite = (props) => {
     postingComment,
     postingDate,
     postingAuthor,
-    postID,
+    // postID,
     _id,
     // postingTag,
     // __v,
+    comments,
   } = props.post
 
   const dispatch = useDispatch()
   const [text, setText] = useState("")
   const [content, setContent] = useState(false)
 
-  // 댓글 모두보기 state 현재안씀
-  const [comment, setComment] = useState(false)
-
-  const get_comment = useSelector((state) => state.comment.comment_list)
-
-  const post_info = get_comment.filter((post) => post.postID === postID)
-
   dayjs.extend(relativeTime)
   dayjs.locale("ko")
 
   return (
     <>
-      {/* 아이콘 */}
-
       <div style={{ display: "flex", margin: "13px" }}>
-        {/* {comment_cnt && comment_cnt.length > 8 ? comment_cnt.slice(0, 8), "...more" : ""} */}
-
         <Texts bold>{postingAuthor}</Texts>
         <Buttons
           padding="0px 10px"
@@ -67,7 +59,7 @@ export const CommentWrite = (props) => {
             history.push("/post/1")
           }}
         >
-          <Texts>댓글 {post_info.length}개 모두보기</Texts>
+          <Texts>댓글 {comments.length}개 모두보기</Texts>
         </Buttons>
       </div>
 
@@ -75,33 +67,10 @@ export const CommentWrite = (props) => {
         <Texts size={12}>{dayjs(postingDate).fromNow()}</Texts>
       </div>
 
-      {/* 사용안함 */}
-      {comment ? (
-        post_info.map((e) => {
-          return (
-            <div key={e._id} style={{ margin: "5px", display: "flex" }}>
-              <Images profileImg src={props.user_Profile} size={20} />
-              <div
-                style={{
-                  display: "flex",
-                  textAlign: "center",
-                  margin: "8px 0",
-                }}
-              >
-                <div style={{ marginRight: "5px" }}>
-                  <Texts bold>{postingAuthor}</Texts>
-                </div>
-                {/* </div> */}
-                <Texts>{e.replyComment}</Texts>
-              </div>
-            </div>
-          )
-        })
-      ) : (
-        // 여기 위까지 사용안함 아래만 사용
+      {/* 메인 댓글창  미리보기*/}
+      {comments.length === 0 ? null : (
         <>
           <div style={{ margin: "5px", display: "flex" }}>
-            {/* <div style={{ display: "flex", alignItems: "center" }}> */}
             <Images profileImg src={props.user_Profile} size={20} />
             <div
               style={{
@@ -115,7 +84,7 @@ export const CommentWrite = (props) => {
               </div>
               {/* </div> */}
               {/* optional chaining "?" - 프로퍼티가 없는 중첩 객체를 에러 없이 안전하게 접근할 수 있습니다*/}
-              <Texts>{post_info[post_info.length - 1]?.replyComment}</Texts>
+              <Texts>{comments[comments.length - 1]?.replyComment}</Texts>
             </div>
           </div>
         </>

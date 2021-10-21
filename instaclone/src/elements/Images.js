@@ -2,13 +2,21 @@ import React from "react"
 import styled from "styled-components"
 
 const Images = (props) => {
-  const { profileImg, postSrc, profileSrc, size } = props
+  const { profileImg, postSrc, profileSrc, size, bg } = props
 
-  if (profileImg) {
-    return <ProfileImg src={profileSrc} size={size}></ProfileImg>
+  const styles = {
+    profileImg,
+    postSrc,
+    profileSrc,
+    size,
+    bg,
   }
 
-  return <PostImg profileImg={profileImg} src={postSrc}></PostImg>
+  if (profileImg) {
+    return <ProfileImg {...styles}></ProfileImg>
+  }
+
+  return <PostImg {...styles}></PostImg>
 }
 
 Images.defaultProps = {
@@ -16,12 +24,13 @@ Images.defaultProps = {
   profileSrc: "https://www.codingfactory.net/wp-content/uploads/abc.jpg",
   profileImg: false,
   size: 32,
+  // bg: false,
 }
 
 const PostImg = styled.div`
   width: 100%;
   padding-top: 125%;
-  background-image: url(${(props) => props.src});
+  background-image: url(${(props) => props.postSrc});
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -30,7 +39,8 @@ const ProfileImg = styled.div`
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
-  background-image: url(${(props) => props.src});
+  /* ${(props) => (props.bg ? `backgorundImage:url(${props.src})` : "")} */
+  background-image: url(${(props) => props.profileSrc});
   border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
