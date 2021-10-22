@@ -71,6 +71,7 @@ const Posting = (props) => {
             .catch((err)=> {
                 console.log(err);
             })
+                
     }
 
     return (
@@ -113,6 +114,7 @@ const Posting = (props) => {
                     <Grid padding="5px 0px 15px 0px">
                         <Button 
                         _onClick={addPost}
+                        
                         >upload</Button>
                     </Grid>
                 </Align>
