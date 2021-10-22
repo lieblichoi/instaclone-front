@@ -31,13 +31,16 @@ const loginDB =
         console.log(res);
         dispatch(
           setUSER({
-            token : res.data.token
+            token : res.data.token,
+            userNickname : res.data.userNickname
           })
         );
-        history.push("/");
+        history.replace("/");
         console.log(res.data.token);
+        console.log(res.data.userNickname);
         const accessToken = "Bearer " + res.data.token;
         setCookie("is_login", `${accessToken}`);
+        localStorage.setItem("author", res.data.userNickname);
       });
   };
 

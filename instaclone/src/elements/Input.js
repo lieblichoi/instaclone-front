@@ -17,7 +17,6 @@ const Input = (props) => {
 
 Input.defaultProps = {
   placeholder: "입력",
-  value: "",
   _onChange: () => {},
 };
 
