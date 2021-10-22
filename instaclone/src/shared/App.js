@@ -5,11 +5,11 @@ import { history } from "../redux/configStore";
 import PostList from "../pages/PostList";
 import Users from "../pages/Users";
 import Login from "../pages/Login";
-import Posts from "../pages/Posts";
 import Favicon from "react-favicon";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Navbar from "../components/Navbar";
+import Posting from "../pages/Posting";
 
 
 const App = () => {
@@ -27,8 +27,9 @@ const App = () => {
         <Favicon url="img/2000px-instagram_logo_2016svg-2000x2000.png" />
         <Navbar />
         <Route path="/login/" exact component={Login}></Route>
+        <Route path="/" exact component={PostList} />
         <Route path="/register/" exact component={Users}></Route>
-        <Route path="/posting/" exact component={Posts}></Route>
+        <Route path="/posting/" exact component={Posting}></Route>
         {/* <Redirect to="/login" /> */}
       </ConnectedRouter>
     );
@@ -40,7 +41,7 @@ const App = () => {
         <Favicon url="img/2000px-instagram_logo_2016svg-2000x2000.png" />
         <Navbar />
         <Route path="/" exact component={PostList} />
-        <Route path="/"/>
+        <Route path="/posting/" exact component={Posting}></Route>
         <Route path="/login/" exact component={Login}></Route>
         <Route path="/register/" exact component={Users}></Route>
       </ConnectedRouter>

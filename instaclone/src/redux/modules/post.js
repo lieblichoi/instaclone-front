@@ -111,7 +111,25 @@ const deletePostDB =
       .catch((err) => console.log(err))
   }
 
-const ImgDB = () => async () => {
+const addPostDB = (text) => {
+  return function (dispatch, getState, { history }) {
+    console.log(text);
+    api
+      .post(`/post/posting`, JSON.stringify(text))
+      .then((res) => {
+        // dispatch(addWork(content));
+        console.log(res.data);
+        history.push("/");
+        dispatch(imageActions.setPreview(null));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(text);
+      });
+  };
+};
+
+const ImgDB = () => async() => {
   await api.post()
 }
 
@@ -122,6 +140,8 @@ const toggleLikeDB = (postId) => {
       .catch((err) => console.log(err))
   }
 }
+
+
 
 // reducer
 export default handleActions(
@@ -136,10 +156,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.postData = action.payload.postData
       }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.unshift(action.payload.post)
-      }),
+    [ADD_POST]: (state, action) => produce(state, (draft) => {
+            draft.list.push(action.payload.post);
+        }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex((c) => c.id === action.payload.id)
@@ -163,6 +182,7 @@ const actionsCreators = {
   getPostDetailDB,
   toggleLikeDB,
   deletePostDB,
+  addPostDB
 };
 
 export {actionsCreators};
