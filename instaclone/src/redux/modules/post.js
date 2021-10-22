@@ -124,6 +124,7 @@ const addPostDB = () => {
       .catch((err) => {
         console.log(err);
       });
+      window.location.replace("/");
   };
 };
 
