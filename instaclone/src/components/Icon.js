@@ -1,7 +1,11 @@
 import React, { useState } from "react"
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { BsChat, BsBookmark } from "react-icons/bs"
+import { BiHeart } from "react-icons/bi";
+import {FiBookmark} from "react-icons/fi";
 import { RiSendPlaneLine } from "react-icons/ri"
+import { HiOutlinePaperAirplane } from "react-icons/hi";
+import {RiChat3Line} from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux"
 import { Buttons, Texts } from "../elements"
 import { actionsCreators as postActions } from "../redux/modules/post"
@@ -65,7 +69,7 @@ export const Icon = (props) => {
           </Buttons>
           {/* 채팅창 아이콘 */}
           <Buttons>
-            <BsChat
+            <RiChat3Line
               style={{
                 width: "24px",
                 height: "24px",
@@ -75,11 +79,11 @@ export const Icon = (props) => {
           </Buttons>
           {/* 쪽지 아이콘 */}
           <Buttons>
-            <RiSendPlaneLine style={{ width: "26px", height: "26px" }} />
+            <HiOutlinePaperAirplane style={{ width: "26px", height: "26px" }} />
           </Buttons>
         </div>
         <div>
-          <BsBookmark style={{ width: "24px", height: "24px" }} />
+          <FiBookmark style={{ width: "24px", height: "24px" }} />
         </div>
       </div>
       <div style={{ margin: "0px 13px" }}>
