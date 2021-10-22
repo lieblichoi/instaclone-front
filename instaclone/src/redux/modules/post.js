@@ -111,11 +111,10 @@ const deletePostDB =
       .catch((err) => console.log(err))
   }
 
-const addPostDB = (text) => {
+const addPostDB = () => {
   return function (dispatch, getState, { history }) {
-    console.log(text);
     api
-      .post(`/post/posting`, JSON.stringify(text))
+      .post(`/post/posting`, JSON.stringify())
       .then((res) => {
         // dispatch(addWork(content));
         console.log(res.data);
@@ -124,7 +123,6 @@ const addPostDB = (text) => {
       })
       .catch((err) => {
         console.log(err);
-        console.log(text);
       });
   };
 };
