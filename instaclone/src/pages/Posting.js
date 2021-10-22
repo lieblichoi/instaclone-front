@@ -111,7 +111,9 @@ const Posting = (props) => {
                         </div>
                     </Margin>
                     <Grid padding="5px 0px 15px 0px">
-                        <Button _onClick={addPost}>upload</Button>
+                        <Button 
+                        _onClick={addPost}
+                        >upload</Button>
                     </Grid>
                 </Align>
                     

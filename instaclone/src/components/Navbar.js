@@ -16,7 +16,7 @@ const Navbar = () => {
 
   if (is_login) {
     return (
-      <React.Fragment>
+      <>
         <div className="navigation">
           {/* outer wrapper */}
           <div className="box">
@@ -24,7 +24,7 @@ const Navbar = () => {
             <div className="nav-logo">
               <a className="no-underline" href="#">
                 <img src="img/logo.png" alt="logo" 
-                onClick={() => history.push("/")}/>
+                onClick={() => window.location.replace("/")}/>
               </a>
             </div>
   
@@ -73,11 +73,11 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   } else {
     return (
-      <React.Fragment>
+      <>
         <div className="navigation">
           {/* outer wrapper */}
           <div className="box">
@@ -85,7 +85,7 @@ const Navbar = () => {
             <div className="nav-logo">
               <a className="no-underline" href="#">
                 <img src="img/logo.png" alt="logo" 
-                onClick={() => history.push("/")}/>
+                onClick={() => window.location.replace("/")}/>
               </a>
             </div>
   
@@ -118,7 +118,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
   

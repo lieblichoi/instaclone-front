@@ -15,11 +15,11 @@ import Posting from "../pages/Posting";
 const App = () => {
   const dispatch = useDispatch();
 
-  const is_login = useSelector((state) => state.user.is_login);
+  const is_login = document.cookie;
 
-  React.useEffect(() => {
-    dispatch(userActions.loginCheckDB());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(userActions.loginCheckDB());
+  // }, []);
 
   if (!is_login) {
     return (
