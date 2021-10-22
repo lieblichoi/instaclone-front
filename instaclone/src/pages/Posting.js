@@ -20,13 +20,11 @@ const Posting = (props) => {
 
     // 입력값 저장
     const [comment, setComment] = React.useState('');
-    
-    const text = {
-        postingAuthor: localStorage.getItem('author'),
-        postingComment: comment
-    };
-
-    console.log(text);
+    const author = localStorage.getItem('author');
+    // const text = {
+    //     postingAuthor: localStorage.getItem('author'),
+    //     postingComment: comment
+    // };
 
     const fileInput = React.useRef();
 
@@ -61,15 +59,14 @@ const Posting = (props) => {
 
         const formData = new FormData();
         formData.append("img", file);
-        // formData.append('key', new Blob([JSON.stringify(text)] , {type: "application/json"}));
+        formData.append('postingAuthor', author);
+        formData.append('postingComment', comment);
         console.log(file);
         api
             .post("post/posting", formData, {headers: { 'Content-Type': 'multipart/form-data' }})
             .then((res)=> {
                 console.log(res.data);
-                text["img"] = res.data;
-                console.log(text);
-                dispatch(postActions.addPostDB(text));
+                dispatch(postActions.addPostDB());
             })
             .catch((err)=> {
                 console.log(err);
