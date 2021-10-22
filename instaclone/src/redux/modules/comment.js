@@ -14,11 +14,17 @@ const initialState = {
   comment_list: [],
 }
 
+const token = document.cookie.split("=")[1];
+
+const accessToken = token;
+console.log(accessToken);
+
 const apiRef = axios.create({
   baseURL: "http://13.209.72.212",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
+    authorization: "Bearer " + `${accessToken}`,
   },
 })
 

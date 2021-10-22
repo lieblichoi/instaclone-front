@@ -1,16 +1,19 @@
 
 import { createAction, handleActions } from "redux-actions";
+import axios from "axios";
 import { produce } from "immer";
 import { api } from "../../shared/api";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 const SET_USER = "user/SET_USER";
 const LOG_OUT = "LOG_OUT";
+const LOG_CHK = "LOG_CHK";
 
 
 // action create function
 const setUSER = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
+const logChk = createAction(LOG_CHK, (user) => ({user}));
 
 const initialState = {
     user: {},
@@ -22,7 +25,9 @@ const loginDB =
   (setEmail, setPassword) =>
   async (dispatch, getState, { history }) => {
     console.log(setEmail, setPassword);
+    
     await api
+    
       .post(`/user/auth`, {
         userEmail: setEmail,
         userPassword: setPassword,
@@ -35,29 +40,39 @@ const loginDB =
             userNickname : res.data.userNickname
           })
         );
-        history.replace("/");
+        window.location.replace("/");
         console.log(res.data.token);
         console.log(res.data.userNickname);
-        const accessToken = "Bearer " + res.data.token;
+        const accessToken = res.data.token;
         setCookie("is_login", `${accessToken}`);
         localStorage.setItem("author", res.data.userNickname);
       });
   };
 
-const loginCheckDB =
-    () =>
-        async (dispatch, getState, {history}) => {
-            const token = getCookie("is_login");
-            await api.get("").then((res) => {
-                dispatch(
-                    setUSER({
-                        token: token,
-                        createdAt: res.data.user.createdAt,
-                        nickname: res.data.user.nickname,
-                    })
-                );
-            });
-        };
+  const loginCheckDB = () => {
+    return function (dispatch, getState, { history }) {
+      const token = getCookie("is_login");
+      console.log(token);
+      axios({
+        method: "post",
+        url: "http://13.209.72.212/user/chkLogin",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => { 
+          dispatch(
+            setUSER({
+              email: res.data.email,
+              nickname: res.data.nickname,
+            })
+          );
+        })
+        .catch((error) => {
+          console.log(error.code, error.message);
+        });
+    };
+  };
 
 const signupDB =
     (setEmail, setNickname, setPassword) =>
@@ -100,6 +115,13 @@ export default handleActions(
                 draft.user = {};
                 draft.is_login = false;
             }),
+        [LOG_CHK]: (state, action) => {
+            produce(state, (draft) => {
+                draft.user = action.payload.user;
+                draft.is_login = true;
+            })
+        }
+        
     },
     initialState
 );
